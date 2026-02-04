@@ -2,67 +2,129 @@
   {
     "id": 1,
     "title": "Hello World",
-    "content": "Just testing this out!",
+    "content": "Just testing this out! Finally got my blog up and running.",
     "author": "icywest",
+    "authorId": 1,
     "status": "published"
   },
   {
     "id": 2,
     "title": "Coffee Time",
-    "content": "Nothing beats a good coffee.",
+    "content": "Nothing beats a good coffee in the morning. Dark roast is the way to go.",
     "author": "icywest",
+    "authorId": 1,
     "status": "published"
   },
   {
     "id": 3,
     "title": "Quick Thought",
-    "content": "Life is short, smile more.",
+    "content": "Life is short, smile more. Appreciate the little things.",
     "author": "icywest",
+    "authorId": 1,
     "status": "published"
   },
   {
     "id": 4,
     "title": "Hidden Post",
-    "content": "This should not be visible.",
+    "content": "This should not be visible. Working on drafts.",
     "author": "icywest",
+    "authorId": 1,
     "status": "draft"
   },
   {
     "id": 5,
     "title": "Late Night Coding",
-    "content": "Bugs love midnight debugging.",
+    "content": "Bugs love midnight debugging. The 2 AM fix hits different.",
     "author": "icywest",
+    "authorId": 1,
     "status": "published"
   },
   {
     "id": 6,
     "title": "Weekend Vibes",
-    "content": "Finally some time to relax!",
+    "content": "Finally some time to relax! No deadlines, just vibes.",
     "author": "icywest",
+    "authorId": 1,
     "status": "published"
   },
   {
     "id": 7,
-    "title": "hello!!",
-    "content": "world c:",
+    "title": "Learning Node.js",
+    "content": "Started learning Node.js and Express. APIs are actually fun!",
     "author": "icywest",
     "authorId": 1,
     "status": "published"
   },
   {
     "id": 8,
-    "title": "hola",
-    "content": "asdasdasda",
-    "author": "Patrick",
+    "title": "First Day at the Job",
+    "content": "New job, new beginnings. Free snacks in the office!",
+    "author": "Carmen",
+    "authorId": 2,
+    "status": "published"
+  },
+  {
+    "id": 9,
+    "title": "Book Recommendation",
+    "content": "Clean Code by Robert Martin. Every developer should read it.",
+    "author": "Carmen",
     "authorId": 2,
     "status": "published"
   },
   {
     "id": 10,
-    "title": "Terminar el midterm ",
-    "content": "Fue horrible, tengo traumas!!!",
+    "title": "Midterm Survival Guide",
+    "content": "Start early, take breaks, backup your code. You got this!",
     "author": "icywest",
     "authorId": 1,
+    "status": "published"
+  },
+  {
+    "id": 11,
+    "title": "Testing in Production",
+    "content": "They said don't do it. I did it anyway. It worked.",
+    "author": "Betty",
+    "authorId": 4,
+    "status": "published"
+  },
+  {
+    "id": 12,
+    "title": "CSS is Hard",
+    "content": "Spent 3 hours centering a div. Flexbox saved the day.",
+    "author": "Betty",
+    "authorId": 4,
+    "status": "draft"
+  },
+  {
+    "id": 13,
+    "title": "System Maintenance",
+    "content": "Scheduled maintenance this weekend. Brief downtime expected.",
+    "author": "admin",
+    "authorId": 3,
+    "status": "published"
+  },
+  {
+    "id": 14,
+    "title": "New Features Coming",
+    "content": "Dark mode and image uploads on the roadmap. Stay tuned!",
+    "author": "admin",
+    "authorId": 3,
+    "status": "published"
+  },
+  {
+    "id": 15,
+    "title": "Rainy Day Coding",
+    "content": "Rain on the window, lo-fi in the background, hot chocolate ready.",
+    "author": "Carmen",
+    "authorId": 2,
+    "status": "published"
+  },
+  {
+    "id": 16,
+    "title": "API Design Tips",
+    "content": "Use proper HTTP methods and meaningful status codes. Future you will be grateful.",
+    "author": "Betty",
+    "authorId": 4,
     "status": "published"
   }
 ]

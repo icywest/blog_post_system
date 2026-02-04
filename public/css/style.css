@@ -1,276 +1,993 @@
-/* General Styles */
-/* it's cyn-made, ofc it's pink ;) */ 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #ffe4e1; /* Light pink background */
+/* CSS Variables */
+:root {
+  --navy: #1A3263;
+  --navy-dark: #142850;
+  --navy-light: #243b6e;
+  --teal: #547792;
+  --teal-light: #6a8da8;
+  --teal-dark: #456579;
+  --gold: #FAB95B;
+  --gold-dark: #e5a647;
+  --gold-light: #fcc67a;
+  --cream: #E8E2DB;
+  --cream-dark: #d9d2c9;
+  --cream-light: #f5f2ee;
+  --white: #ffffff;
+  --text-dark: #1A3263;
+  --text-medium: #547792;
+  --text-light: #7a9ab0;
+  --shadow: rgba(26, 50, 99, 0.1);
+  --shadow-strong: rgba(26, 50, 99, 0.2);
+}
+
+/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
   margin: 0;
-  padding: 20px;
+  padding: 0;
 }
 
-/* Main Container */
-.container {
-  max-width: 800px;
-  margin: auto;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--cream);
+  color: var(--text-dark);
+  line-height: 1.6;
+  min-height: 100vh;
 }
 
-/* Blog Post Card */
-.post-card {
-  background: #ffebef; /* Soft pink */
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(255, 105, 180, 0.3);
+a {
+  color: var(--teal);
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-.post-card h2 {
-  margin-bottom: 10px;
-  color: #d63384; /* Dark pink */
+a:hover {
+  color: var(--navy);
 }
 
-.post-content {
-  font-size: 16px;
-  color: #333;
+/* ========================================
+   NAVIGATION BAR
+======================================== */
+
+nav {
+  background: var(--white);
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--cream-dark);
 }
 
-.post-author {
+/* Logo / Home Link */
+nav a:first-child {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--navy);
+  margin-right: auto;
+  letter-spacing: -0.5px;
+}
+
+nav a:first-child:hover {
+  color: var(--teal);
+}
+
+/* TITLES */
+.page-title,
+.profile-title,
+.login-title {
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Welcome Message */
+nav h1 {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-medium);
+  margin: 0;
+  padding: 0 20px;
+  border-left: 1px solid var(--cream-dark);
+  border-right: 1px solid var(--cream-dark);
+}
+
+/* Nav Links */
+nav a:not(:first-child) {
+  color: var(--text-medium);
   font-size: 14px;
-  color: #555;
-  margin-top: 5px;
+  font-weight: 500;
+  padding: 8px 16px;
+  margin-left: 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
 }
 
-/* Comments Section */
+nav a:not(:first-child):hover {
+  color: var(--navy);
+  background: var(--cream-light);
+}
+
+/* My Posts Link */
+nav a[href*="profile"] {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+/* Logout Link */
+nav a[href*="logout"] {
+  color: var(--teal);
+  border: 1px solid var(--cream-dark);
+}
+
+nav a[href*="logout"]:hover {
+  background: var(--cream);
+  border-color: var(--teal);
+}
+
+/* Login Link */
+nav a[href="/login"] {
+  background: var(--navy);
+  color: var(--white);
+  font-weight: 600;
+}
+
+nav a[href="/login"]:hover {
+  background: var(--navy-dark);
+}
+
+/* ========================================
+   PAGE LAYOUT
+======================================== */
+
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 30px;
+}
+
+.profile-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 30px;
+}
+
+/* Page Title */
+h1:not(nav h1) {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 30px;
+}
+
+h2:not(.post-card h2) {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 24px;
+}
+
+/* ========================================
+   POSTS GRID - 2 COLUMNS
+======================================== */
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+/* For handlebars each loop without wrapper */
+.container {
+  display: block;
+}
+
+/* Target direct article children for grid */
+.container > .post-card {
+  break-inside: avoid;
+}
+
+/* Create grid using CSS columns as fallback */
+@supports (display: grid) {
+  .container:has(.post-card) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+  
+  .container > h1:not(nav h1) {
+    grid-column: 1 / -1;
+  }
+  
+  .container > .no-posts {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ========================================
+   POST CARD
+======================================== */
+
+.post-card {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 1px 3px var(--shadow);
+  border: 1px solid var(--cream-dark);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+}
+
+.post-card:hover {
+  box-shadow: 0 8px 24px var(--shadow-strong);
+  transform: translateY(-3px);
+}
+
+/* Post Title */
+.post-card h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+/* Post Author */
+.post-author {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--cream);
+}
+
+.post-author strong {
+  font-weight: 600;
+  color: var(--teal);
+}
+
+/* Post Content */
+.post-content {
+  font-size: 14px;
+  color: var(--text-medium);
+  line-height: 1.7;
+  margin-bottom: 16px;
+  flex-grow: 1;
+  
+  /* Limit content height with fade */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ========================================
+   COMMENTS SECTION
+======================================== */
+
 .comments-container {
-  margin-top: 15px;
-  padding: 10px;
-  background: #ffe4e9; /* Light pink */
-  border-radius: 5px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--cream);
 }
 
 .comments-container h3 {
-  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-light);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
 }
 
 .comment {
-  padding: 8px;
-  border-bottom: 1px solid #ffbad2;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  background: var(--cream-light);
+  border-radius: 6px;
+  border-left: 3px solid var(--teal);
 }
 
-.comment:last-child {
-  border-bottom: none;
+.comment:last-of-type {
+  margin-bottom: 0;
 }
 
 .comment .author {
-  font-weight: bold;
-  color: #d63384;
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+.comment .author strong {
+  font-weight: 600;
+  color: var(--teal);
+}
+
+.comment p:not(.author) {
+  font-size: 13px;
+  color: var(--text-dark);
+  line-height: 1.5;
+}
+
+.comment form {
+  margin-top: 6px;
+}
+
+.comment .delete-btn {
+  background: transparent;
+  color: var(--text-light);
+  border: none;
+  padding: 3px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.comment .delete-btn:hover {
+  background: rgba(26, 50, 99, 0.08);
+  color: var(--navy);
 }
 
 .no-comments {
-  font-style: italic;
-  color: #777;
+  color: var(--text-light);
+  font-size: 13px;
+  padding: 8px 0;
 }
 
-/* Delete Comment Button */
-.delete-btn {
-  background: #ff4d6d;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 14px;
-}
+/* ========================================
+   COMMENT FORM
+======================================== */
 
-.delete-btn:hover {
-  background: #e63956;
-}
-
-/* Comment Form */
 .comment-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-top: 15px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--cream);
 }
 
 .comment-form textarea {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ffbad2;
-  border-radius: 5px;
+  padding: 10px 12px;
+  border: 1px solid var(--cream-dark);
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 60px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: var(--cream-light);
+}
+
+.comment-form textarea:focus {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(84, 119, 146, 0.12);
+  background: var(--white);
+}
+
+.comment-form textarea::placeholder {
+  color: var(--text-light);
 }
 
 .comment-form .btn {
-  background: #ff4d6d;
-  color: white;
-  padding: 10px;
+  align-self: flex-end;
+  background: var(--teal);
+  color: var(--white);
+  padding: 8px 18px;
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
 }
 
 .comment-form .btn:hover {
-  background: #e63956;
+  background: var(--teal-dark);
 }
 
-/* Login Message */
+/* ========================================
+   LOGIN MESSAGE
+======================================== */
+
 .login-message {
+  font-size: 13px;
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: var(--cream-light);
+  border-radius: 6px;
   text-align: center;
-  font-size: 14px;
-  margin-top: 10px;
+  color: var(--text-medium);
 }
 
 .login-message a {
-  color: #d63384;
-  text-decoration: none;
+  color: var(--teal);
+  font-weight: 600;
 }
 
 .login-message a:hover {
+  color: var(--navy);
   text-decoration: underline;
 }
 
-/* No Posts Message */
+/* ========================================
+   NO POSTS MESSAGE
+======================================== */
+
 .no-posts {
-  color: #777;
-  font-style: italic;
+  color: var(--text-light);
   text-align: center;
+  padding: 60px 30px;
+  font-size: 15px;
+  background: var(--white);
+  border-radius: 10px;
+  border: 1px solid var(--cream-dark);
 }
 
+/* ========================================
+   LOGIN / SIGN UP PAGE
+======================================== */
+
+form[action="/auth/login"] {
+  max-width: 380px;
+  margin: 60px auto;
+  padding: 36px;
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 4px 20px var(--shadow);
+  border: 1px solid var(--cream-dark);
+}
+
+form[action="/auth/login"] label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 18px;
+}
+
+form[action="/auth/login"] input[type="text"],
+form[action="/auth/login"] input[type="password"] {
+  padding: 12px 14px;
+  border: 1px solid var(--cream-dark);
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: var(--cream-light);
+}
+
+form[action="/auth/login"] input:focus {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(84, 119, 146, 0.12);
+  background: var(--white);
+}
+
+form[action="/auth/login"] input::placeholder {
+  color: var(--text-light);
+}
+
+form[action="/auth/login"] button {
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 6px;
+}
+
+form[action="/auth/login"] button[value="login"] {
+  background: var(--navy);
+  color: var(--white);
+}
+
+form[action="/auth/login"] button[value="login"]:hover {
+  background: var(--navy-dark);
+}
+
+form[action="/auth/login"] button[value="signup"] {
+  background: var(--white);
+  color: var(--navy);
+  border: 1px solid var(--cream-dark);
+}
+
+form[action="/auth/login"] button[value="signup"]:hover {
+  background: var(--cream-light);
+  border-color: var(--navy);
+}
+
+/* Error Message */
+p[style="color: red;"] {
+  background: rgba(214, 51, 51, 0.08);
+  color: #b91c1c !important;
+  padding: 12px 16px;
+  border-radius: 6px;
+  text-align: center;
+  max-width: 380px;
+  margin: 0 auto 24px auto;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid rgba(214, 51, 51, 0.15);
+}
+
+/* ========================================
+   PROFILE PAGE
+======================================== */
+
 /* Add Post Section */
+.add-post {
+  background: var(--white);
+  padding: 28px;
+  border-radius: 10px;
+  margin-bottom: 32px;
+  box-shadow: 0 1px 3px var(--shadow);
+  border: 1px solid var(--cream-dark);
+}
+
 .add-post h3 {
-  margin-bottom: 10px;
-  color: #d63384;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--gold);
 }
 
 .add-post form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
 }
 
-.add-post input,
+.add-post input[type="text"],
 .add-post textarea,
 .add-post select {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ffbad2;
-  border-radius: 5px;
+  padding: 12px 14px;
+  border: 1px solid var(--cream-dark);
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: var(--cream-light);
+}
+
+.add-post input[type="text"]:focus,
+.add-post textarea:focus,
+.add-post select:focus {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(84, 119, 146, 0.12);
+  background: var(--white);
+}
+
+.add-post input[type="text"]::placeholder,
+.add-post textarea::placeholder {
+  color: var(--text-light);
+}
+
+.add-post textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.add-post select {
+  cursor: pointer;
+  color: var(--text-dark);
 }
 
 .add-post button {
-  background: #ff4d6d;
-  color: white;
-  padding: 10px;
+  align-self: flex-end;
+  background: var(--gold);
+  color: var(--navy);
+  padding: 12px 28px;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 6px;
   font-size: 14px;
+  font-weight: 700;
+  transition: all 0.2s ease;
 }
 
 .add-post button:hover {
-  background: #e63956;
+  background: var(--gold-dark);
 }
 
-/* Posts List */
+/* Profile Divider */
+.profile-container hr {
+  border: none;
+  height: 1px;
+  background: var(--cream-dark);
+  margin: 36px 0;
+}
+
+/* ========================================
+   POSTS LIST GRID - Profile Page
+======================================== */
+
 .posts-list {
   list-style: none;
-  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
 }
 
 .post-item {
-  background: #ffebef;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(255, 105, 180, 0.3);
+  background: var(--white);
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 1px 3px var(--shadow);
+  border: 1px solid var(--cream-dark);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
 }
 
-.post-header {
+.post-item:hover {
+  box-shadow: 0 8px 24px var(--shadow-strong);
+  transform: translateY(-3px);
+}
+
+/* Post Header */
+.post-item .post-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  gap: 12px;
 }
 
-.post-header h3 {
+.post-item .post-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  flex: 1;
   margin: 0;
+  line-height: 1.4;
 }
 
+/* Post Status Badge */
 .post-status {
-  font-size: 14px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: white;
-  background: #ff4d6d;
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  background: var(--cream);
+  color: var(--text-medium);
 }
 
-/* Action Buttons */
+/* Post Content */
+.post-item .post-content {
+  font-size: 14px;
+  color: var(--text-medium);
+  margin-bottom: 18px;
+  line-height: 1.6;
+  flex-grow: 1;
+  
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ========================================
+   POST ACTIONS
+======================================== */
+
 .post-actions {
   display: flex;
   gap: 10px;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--cream);
+  margin-top: auto;
 }
 
+.post-actions form {
+  display: inline;
+}
+
+/* Button Base */
 .btn {
-  padding: 8px 12px;
+  padding: 8px 16px;
   border: none;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
+/* Edit Button */
 .edit-btn {
-  background: #ff85a2;
-  color: black;
+  background: var(--cream-light);
+  color: var(--navy);
+  border: 1px solid var(--cream-dark);
 }
 
 .edit-btn:hover {
-  background: #ff4d6d;
+  background: var(--teal);
+  color: var(--white);
+  border-color: var(--teal);
 }
 
+/* Delete Button */
 .delete-btn {
-  background: #ff4d6d;
-  color: white;
+  background: transparent;
+  color: var(--text-medium);
+  border: 1px solid var(--cream-dark);
 }
 
 .delete-btn:hover {
-  background: #e63956;
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
 }
 
-/* Edit Form*/
-.edit-form {
-  display: none;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 10px;
-  padding: 10px;
-  background: #ffe4e9;
-  border-radius: 5px;
-}
-
-.edit-form input,
-.edit-form textarea,
-.edit-form select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ffbad2;
-  border-radius: 5px;
-}
-
+/* Save Button */
 .save-btn {
-  background: #ff4d6d;
-  color: white;
+  background: var(--gold);
+  color: var(--navy);
 }
 
 .save-btn:hover {
-  background: #e63956;
+  background: var(--gold-dark);
 }
 
-/* No Posts Message */
-.no-posts {
-  color: #777;
-  font-style: italic;
-  text-align: center;
+/* ========================================
+   EDIT FORM
+======================================== */
+
+.edit-form {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--cream-light);
+  border-radius: 8px;
+  border: 1px solid var(--cream-dark);
+}
+
+.edit-form.active {
+  display: flex;
+}
+
+.edit-form input[type="text"],
+.edit-form textarea,
+.edit-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--cream-dark);
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+  background: var(--white);
+  transition: border-color 0.2s ease;
+}
+
+.edit-form input[type="text"]:focus,
+.edit-form textarea:focus,
+.edit-form select:focus {
+  outline: none;
+  border-color: var(--teal);
+}
+
+.edit-form textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+.edit-form select {
+  cursor: pointer;
+}
+
+.edit-form .save-btn {
+  align-self: flex-end;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+
+@media (max-width: 900px) {
+  .container:has(.post-card),
+  .posts-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .container {
+    max-width: 600px;
+  }
+  
+  .profile-container {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    padding: 12px 20px;
+    height: auto;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  nav a:first-child {
+    font-size: 18px;
+  }
+  
+  nav h1 {
+    order: 3;
+    width: 100%;
+    border: none;
+    padding: 10px 0 0 0;
+    text-align: center;
+    font-size: 13px;
+  }
+  
+  nav a:not(:first-child) {
+    padding: 8px 14px;
+    font-size: 13px;
+    margin-left: 4px;
+  }
+  
+  .container,
+  .profile-container {
+    margin: 24px auto;
+    padding: 0 20px;
+  }
+  
+  h1:not(nav h1) {
+    font-size: 22px;
+    margin-bottom: 24px;
+  }
+  
+  .post-card,
+  .post-item,
+  .add-post {
+    padding: 20px;
+  }
+  
+  form[action="/auth/login"] {
+    margin: 40px 20px;
+    padding: 28px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    padding: 12px 15px;
+  }
+  
+  nav a:first-child {
+    margin-right: 0;
+    flex: 1;
+  }
+  
+  nav h1 {
+    display: none;
+  }
+  
+  nav a:not(:first-child) {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .container,
+  .profile-container {
+    padding: 0 15px;
+    margin: 16px auto;
+  }
+  
+  h1:not(nav h1) {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .post-card,
+  .post-item {
+    padding: 18px;
+  }
+  
+  .post-card h2,
+  .post-item .post-header h3 {
+    font-size: 15px;
+  }
+  
+  .post-item .post-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .post-status {
+    align-self: flex-start;
+  }
+  
+  .post-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .post-actions .btn,
+  .post-actions form {
+    width: 100%;
+  }
+  
+  .post-actions form button {
+    width: 100%;
+  }
+  
+  .comment-form .btn {
+    align-self: stretch;
+  }
+  
+  .add-post {
+    padding: 18px;
+  }
+  
+  .add-post button {
+    align-self: stretch;
+  }
+}
+
+/* ========================================
+   SCROLLBAR
+======================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cream-dark);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--teal);
+}
+
+/* ========================================
+   SELECTION & FOCUS
+======================================== */
+
+::selection {
+  background: var(--navy);
+  color: var(--white);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 2px;
+}
+
+.btn:active,
+button:active {
+  transform: scale(0.98);
 }

@@ -2,7 +2,6 @@ import fs from "fs";
 
 const COMMENTS_FILE = "./models/comments.json";
 
-
 export function getAllComments() {
     try {
         if (!fs.existsSync(COMMENTS_FILE)) {

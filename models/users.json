@@ -6,12 +6,37 @@
   },
   {
     "userId": 2,
-    "username": "Patrick",
+    "username": "Carmen",
     "password": "ssss"
   },
   {
     "userId": 3,
     "username": "admin",
     "password": "admin"
+  },
+  {
+    "userId": 4,
+    "username": "Betty",
+    "password": "1234"
+  },
+  {
+    "userId": 5,
+    "username": "devguru",
+    "password": "code123"
+  },
+  {
+    "userId": 6,
+    "username": "nightowl",
+    "password": "moon"
+  },
+  {
+    "userId": 7,
+    "username": "coffeecoder",
+    "password": "espresso"
+  },
+  {
+    "userId": 8,
+    "username": "bugfixer",
+    "password": "debug"
   }
 ]

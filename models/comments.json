@@ -2,25 +2,85 @@
   {
     "id": 1,
     "postId": 1,
-    "username": "icywest",
-    "content": "hopla"
+    "userId": 2,
+    "username": "Betty",
+    "content": "Welcome to blogging!"
+  },
+  {
+    "id": 2,
+    "postId": 1,
+    "userId": 4,
+    "username": "Carmen",
+    "content": "Great first post!"
   },
   {
     "id": 3,
     "postId": 2,
-    "username": "icywest",
-    "content": "si"
+    "userId": 3,
+    "username": "admin",
+    "content": "Espresso is the way"
+  },
+  {
+    "id": 4,
+    "postId": 5,
+    "userId": 2,
+    "username": "Betty",
+    "content": "3 AM debugging hits different"
   },
   {
     "id": 5,
-    "postId": 2,
-    "username": "Patrick",
-    "content": "okokok"
+    "postId": 5,
+    "userId": 4,
+    "username": "Carmen",
+    "content": "console.log is my best friend"
   },
   {
     "id": 6,
+    "postId": 8,
+    "userId": 1,
+    "username": "icywest",
+    "content": "Congrats on the new job!"
+  },
+  {
+    "id": 7,
     "postId": 10,
+    "userId": 2,
+    "username": "Betty",
+    "content": "Git saved my life"
+  },
+  {
+    "id": 8,
+    "postId": 11,
+    "userId": 3,
     "username": "admin",
-    "content": "increible"
+    "content": "Brave move!"
+  },
+  {
+    "id": 9,
+    "postId": 12,
+    "userId": 1,
+    "username": "icywest",
+    "content": "Flexbox is your friend"
+  },
+  {
+    "id": 10,
+    "postId": 14,
+    "userId": 1,
+    "username": "icywest",
+    "content": "Dark mode please!"
+  },
+  {
+    "id": 11,
+    "postId": 14,
+    "userId": 4,
+    "username": "Carmen",
+    "content": "Image uploads would be great"
+  },
+  {
+    "id": 12,
+    "postId": 15,
+    "userId": 1,
+    "username": "icywest",
+    "content": "Lo-fi beats are elite"
   }
 ]
